@@ -5,8 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 #use for mailboxer
-gem 'bootstrap-sass'
-gem 'bootstrap-will_paginate'
+gem 'bootstrap-sass', '>= 3.3.7'
+# gem 'bootstrap-will_paginate'
 gem 'will_paginate'
 gem 'devise', '~> 4.4', '>= 4.4.3'
 gem "mailboxer"
