@@ -61,5 +61,6 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 
-gem 'braintree'
-gem 'square_connect'
+# gem 'braintree'
+# gem 'square_connect'
+gem 'paypal-sdk-rest'
