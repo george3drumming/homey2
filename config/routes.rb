@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'groups', to: "groups#index"
+   get 'groups/new_group'  
+
   resources :charges
   devise_for :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
