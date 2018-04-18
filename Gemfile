@@ -63,3 +63,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'stripe'
 
 gem 'dotenv', '~> 2.2', '>= 2.2.2'
+gem 'google-api-client', require: 'google/apis/calendar_v3'
+gem 'signet', '~> 0.8.1'
