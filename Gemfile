@@ -62,4 +62,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'stripe'
 
-gem 'dotenv', '~> 2.2', '>= 2.2.2'
+gem 'dotenv-rails'
