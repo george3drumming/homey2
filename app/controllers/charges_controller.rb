@@ -1,6 +1,7 @@
 class ChargesController < ApplicationController
     
     def new
+        @pubkey = ENV['stripe_publishable_key']
     end
 
     def create

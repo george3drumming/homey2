@@ -9,11 +9,11 @@
       <span>Amount: $5.00</span>
     </label>
   </article>
+<%= @pubkey %>
 
-  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-          Stripe.setPublishableKey("pk_test_PF0vpJoY9cxfp3IEOy3WX3p5");
-          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%= @pubkey %>"
           data-description="A month's subscription"
           data-amount="500"
-          data-locale="auto"></script>
+          data-locale="auto"></script> 
 <% end %>
