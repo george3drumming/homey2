@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :authenticate_user!
+
     
     
     def index
@@ -8,8 +8,8 @@ class GroupsController < ApplicationController
   end
   
   def new_group
-          @nu_grp = params{:new_group}
-          @res = "group_address"
-             
+          @nu_grp = params[:new_group]
+          @res = params[:group_address]
+            
   end  
 end

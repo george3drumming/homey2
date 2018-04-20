@@ -4,15 +4,20 @@
 <br/>
 
     
-    <%= form_tag groups_new_group_path, :method => 'GET' do %>
+    <%= form_tag groups_new_group_path, :method => 'POST' do %>
         <%= text_field_tag 'new_group', nil, placeholder:'Enter Group Name', size: 50 %>
         
-    <% end %>
-<br/>
-<%= form_tag groups_new_group_path, :method => 'GET' do %>
+   
+<br/><br/>
+<%= form_tag groups_new_group_path, :method => 'POST' do %>
         <%= text_field_tag 'goup_address', nil, placeholder:' Enter Residence', size: 50 %>
-        
-    <% end %>
 <br/><br/>
 
 <%= submit_tag 'Create Group ' %>
+        
+        <% end %>
+
+    <% end %>
+<br/><br/>
+<%#=  @nu_grp %>
+<%= @res %>
