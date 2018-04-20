@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'groups', to: "groups#index"
-   get 'groups/new_group'  
+  get 'groups/new_group'
+  post '/groups/new_group' => 'groups/new_group'
 
   resources :charges
   devise_for :users
