@@ -1,0 +1,115 @@
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+<script type="text/javascript">
+  Stripe.setPublishableKey('<%= @pubkey %>');
+</script>
+
+
+Here below a quick how-to based on my experience (you can find my dummy Rails-Stripe integration here):
+
+First of all, add gem 'stripe' to your Gemfile. Run bundle install and restart your webserver.
+
+Create charges_controller.rb add charge_customform action:
+
+def charge_customform
+    # Amount in cents
+    @amount = 99
+
+    # Get the credit card details submitted by the form
+    customer = Stripe::Customer.create(
+        :email => params[:email],
+        :source  => params[:stripeToken]
+    )
+
+    # Create the charge on Stripe's servers - this will charge the user's card
+    begin
+      Stripe::Charge.create(
+          :amount => @amount,
+          :currency => 'usd',
+          :customer => customer.id,
+          :description => 'Example charge custom form'
+      )
+      redirect_to charges_thanks_path
+      # remember to create a thanks.html.erb page in view/charges :)
+
+      rescue Stripe::CardError => e
+      flash[:error] = e.message
+      redirect_to root_path
+    end
+
+end
+In your view, first of all import the required JS in the page:
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+Then set your publishable key
+
+<script type="text/javascript">
+  Stripe.setPublishableKey('your_key_here');
+</script>
+Add your custom form_tag:
+
+<%= form_tag charge_customform_charges_path, id: 'payment-form' do %>
+  <span class="payment-errors"></span>
+
+  <div class="form-group">
+    <label>
+      <span>Your email</span>
+      <input value="<%= current_user.email if current_user %>" type="text" size="20" data-stripe="email">
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label>
+      <span>Card Number</span>
+      <input type="text" size="20" data-stripe="number">
+    </label>
+  </div>
+
+  <div class="form-group">
+    <label>
+      <span>Expiration (MM/YY)</span>
+      <input type="text" size="2" data-stripe="exp_month">
+    </label>
+    <span> / </span>
+    <input type="text" size="2" data-stripe="exp_year">
+  </div>
+
+  <div class="form-group">
+    <label>
+      <span>CVC</span>
+      <input type="text" size="4" data-stripe="cvc">
+    </label>
+  </div>
+
+  <input type="submit" class="submit" value="Submit Payment">
+<% end %>
+
+<script>
+  $(function() {
+    var $form = $('#payment-form');
+    $form.submit(function(event) {
+      // Disable the submit button to prevent repeated clicks:
+      $form.find('.submit').prop('disabled', true);
+      // Request a token from Stripe:
+      Stripe.card.createToken($form, stripeResponseHandler);
+      // Prevent the form from being submitted:
+      return false;
+    });
+  });
+  function stripeResponseHandler(status, response) {
+    // Grab the form:
+    var $form = $('#payment-form');
+    if (response.error) { // Problem!
+      // Show the errors on the form:
+      $form.find('.payment-errors').text(response.error.message);
+      $form.find('.submit').prop('disabled', false); // Re-enable submission
+    } else { // Token was created!
+      // Get the token ID:
+      var token = response.id;
+      // Insert the token ID into the form so it gets submitted to the server:
+      $form.append($('<input type="hidden" name="stripeToken">').val(token));
+      // Submit the form:
+      $form.get(0).submit();
+    }
+  };
+</script>
