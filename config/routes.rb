@@ -28,6 +28,8 @@ resources :conversations, only: [:index, :show, :destroy] do
   post '/events/:calendar_id', to: 'example#new_event', as: 'new_event', calendar_id: /[^\/]+/
 
 root to: 'conversations#index'
+
+get 'charges/new'
     end
 
 

@@ -1,3 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <%= favicon_link_tag 'home.png' %>
+  <title>Homey</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container">
+      
+    <div class="navbar-header">
+      <%= image_tag 'home.png', :size => "50x50" %>
+      <%= link_to 'Homey', root_path, class: 'navbar-brand' %>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <% if user_signed_in? %>
+        <li><%= link_to 'Group', groups_path %></li>
+        <li><%= link_to 'Conversations', conversations_path %></li>
+        <li><%#= link_to 'Users', users_path %></li>
+        <li><%#= link_to 'New Group', groups_new_group_path %></li>      
+        <li><%= link_to 'Charges', charges_new_path %></li>
+        <li><%= link_to 'Edit Profile', edit_user_registration_path %></li>
+        <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete %></li>
+      <% else %>
+        <li><%= link_to 'Log In', new_user_session_path %></li>
+        <li><%= link_to 'Sign Up', new_user_registration_path %></li>
+      <% end %>
+    </ul>
+  </div>
+</nav>
+
+
 <%= form_tag charges_path do %>
   <article>
     <% if flash[:error].present? %>
@@ -6,14 +44,16 @@
       </div>
     <% end %>
     <label class="amount">
-      <span>Amount: $5.00</span>
+      <span>Rent Payment: $600.00</span>
     </label>
   </article>
-<%= @pubkey %>
+<%#= @pubkey %>
 
-<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+<script src="https://checkout.stripe.com/checkout.js"
           data-key="<%= @pubkey %>"
-          data-description="A month's subscription"
-          data-amount="500"
+          data-description="Rent Payment"
+          data-amount="60000"
           data-locale="auto"></script> 
 <% end %>
+    
+    </body>
