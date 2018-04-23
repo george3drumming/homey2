@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
     acts_as_messageable
     
+    belongs_to :group
+    
     def mailboxer_email(object)
     email
   end

@@ -1,2 +1,29 @@
-<h1>Group</h1>
-<%= @roomates %> 
+<h1> Group</h1>
+ <br/><br/>
+   <table class="table table-hover table-striped table-bordered info">
+     <thead>  
+      <tr>
+         <th>Homey Id</th>
+          <th>Homey's</th>
+         
+         <th>Address</th>
+      </tr>
+    </thead>
+         
+    <table class="table table-hover table-striped table-bordered info">
+        <tbody> 
+        
+       <% @group.each do |group| %>
+           
+           <tr> 
+               <td><%= group.id %></td>
+               <td><%= group.name %></td>
+               <td><%= group.group_address %></td>
+           <% end %>
+            
+             <%# end %>
+        <%# end %>
+        </tr>    
+     </tbody>
+ </table>
+<br/>
