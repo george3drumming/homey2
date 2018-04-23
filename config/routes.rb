@@ -3,8 +3,10 @@ Rails.application.routes.draw do
   get 'groups/new_group'
   post '/groups/new_group' => 'groups/new_group'
 
+  
+    
   resources :charges
-  devise_for :users
+  devise_for :users,  :controllers => { signup: 'signup' }
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
 resources :conversations, only: [:index, :show, :destroy] do
