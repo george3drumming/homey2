@@ -8,10 +8,12 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
 </head>
-<body>
 
-<nav class="navbar navbar-inverse">
+<body>
+<nav id="background" class="navbar navbar-inverse">
   <div class="container">
       
     <div class="navbar-header">
@@ -35,25 +37,37 @@
   </div>
 </nav>
 
+<div class='container'>
 
-<%= form_tag charges_path do %>
-  <article>
-    <% if flash[:error].present? %>
-      <div id="error_explanation">
-        <p><%= flash[:error] %></p>
-      </div>
+    <%= form_tag charges_path do %>
+    <article>
+        <% if flash[:error].present? %>
+        <div id="error_explanation">
+            <p><%= flash[:error] %></p>
+        </div>
+        <% end %>
+        <label class="amount">
+            <div class="page-header">
+                <h1>Payment Request: $600.00 <br><br> From: lacrestreed@gmail.com</h1>
+            </div>
+        </label>
+    </article>
+
+
+    <form action="your-server-side-code" method="POST">
+    <script
+    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+    data-key="<%= @pubkey %>"
+    data-amount="60000"
+    data-name="Rent Payment"
+    data-description="lacrestreed@gmail.com"
+
+    data-locale="auto">
+    </script>
     <% end %>
-    <label class="amount">
-      <span>Rent Payment: $600.00</span>
-    </label>
-  </article>
-<%#= @pubkey %>
+    </form>    
+    <br>Note: Rent
+</div>
+</body>
 
-<script src="https://checkout.stripe.com/checkout.js"
-          data-key="<%= @pubkey %>"
-          data-description="Rent Payment"
-          data-amount="60000"
-          data-locale="auto"></script> 
-<% end %>
-    
-    </body>
+</html>
